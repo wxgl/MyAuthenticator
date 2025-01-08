@@ -24,3 +24,7 @@ body {
 .flex-center {
   @apply flex justify-center items-center;
 }
+
+.VueHotToast__toast {
+  @apply !p-1.5 !font-medium;
+}

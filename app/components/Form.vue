@@ -1,40 +1,37 @@
 <script setup lang="ts">
-import type { FormErrorEvent } from "#ui/types";
+import type { FormErrorEvent, FormSubmitEvent } from "#ui/types";
+import { toast } from "@steveyuowo/vue-hot-toast";
 
 const modal = useModal();
 
-const state = reactive({
+const state = reactive<Account>({
   type: "TOTP",
   issuer: "",
-  secret: undefined,
+  secret: "",
   algorithm: "SHA1",
-  label: undefined,
+  label: "",
   icon: "i-simple-icons-google",
-  icontype: "normal",
   digits: 6,
   period: 30,
   counter: 0,
 });
 
-async function onError(event: FormErrorEvent) {
-  console.log(event.errors[0]);
-  // toast.error(event.errors[0].message);
-}
-
 const searchIssuer = ref("");
-const searchIssuerDebounced = refDebounced(searchIssuer, 300);
+const searchIssuerDebounced = refDebounced(searchIssuer, 500);
 const selectedIssuer = ref<{ label: string; icon: string }>();
 
 const showAdvanced = ref(false);
 
-const { data: icons, status } = await useLazyFetch(
+const loading = ref(false);
+
+const { data: icons } = await useLazyFetch(
   "https://api.iconify.design/search",
   {
     query: {
       query: searchIssuerDebounced,
       limit: 999,
       prefixes:
-        "logos,simple-icons,devicon,vscode-icons,token-branded,mdi,ri,line-icons,articons,teeny-icons,meteor-icons,mingcute",
+        "logos,simple-icons,devicon,token-branded,mdi,ri,line-icons,articons,teeny-icons,mingcute",
     },
     transform: (data: { icons: string[] }) => {
       if (!data.icons.length)
@@ -57,12 +54,46 @@ const updateIssuerAndIcon = () => {
   state.icon = selectedIssuer.value.icon;
   state.issuer = selectedIssuer.value.label;
 };
+
+async function addAccount(event: FormSubmitEvent<Account>) {
+  loading.value = true;
+  const toastid = toast.loading("loading...");
+  await $fetch("/api/accounts", {
+    method: "POST",
+    body: [event.data],
+  })
+    .then((res) => {
+      toast.update(toastid, {
+        message: res.msg,
+        type: "success",
+      });
+      loading.value = false;
+    })
+    .catch((err: Error) => {
+      toast.update(toastid, {
+        message: err.message,
+        type: "success",
+      });
+      loading.value = false;
+      console.error(err);
+    });
+}
+
+async function onError(event: FormErrorEvent) {
+  console.log(event.errors[0]);
+  toast.error(event.errors[0]?.message!);
+}
 </script>
 
 <template>
   <UModal title="Setup Using Key" :close="false" :dismissible="false" class="">
     <template #body>
-      <UForm :schema="accountSchema" :state="state" @error="onError">
+      <UForm
+        :schema="accountSchema"
+        :state="state"
+        @submit="addAccount"
+        @error="onError"
+      >
         <UFormField size="xl" label="Issuer" name="issuer" required>
           <UInputMenu
             ignore-filter
@@ -73,16 +104,17 @@ const updateIssuerAndIcon = () => {
             size="xl"
             v-model="selectedIssuer"
             @update:model-value="updateIssuerAndIcon"
+            required
           />
         </UFormField>
         <UFormField size="xl" label="Label" name="label" required>
-          <UInput size="xl" v-model="state.label" />
+          <UInput size="xl" v-model="state.label" required />
         </UFormField>
         <UFormField size="xl" label="Type" name="type" required>
           <USelect size="xl" v-model="state.type" :items="otpTypes" />
         </UFormField>
         <UFormField size="xl" label="Key" name="secret" required>
-          <UInput size="xl" v-model="state.secret" />
+          <UInput size="xl" v-model="state.secret" required />
         </UFormField>
         <div v-show="!showAdvanced" class="flex-center w-full">
           <UButton
@@ -150,7 +182,9 @@ const updateIssuerAndIcon = () => {
             variant="ghost"
             size="lg"
           />
-          <UButton variant="soft" size="md">Submit</UButton>
+          <UButton type="submit" :disabled="loading" variant="soft" size="md"
+            >Submit</UButton
+          >
         </div>
       </UForm>
     </template>

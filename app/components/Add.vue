@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import Form from "./Form.vue";
+import Qrscan from "./Qrscan.vue";
 
 const modal = useModal();
 
 const openForm = async () => {
   await modal.close();
   setTimeout(() => modal.open(Form), 300);
+};
+
+const openQrscan = async () => {
+  await modal.close();
+  setTimeout(() => modal.open(Qrscan), 300);
 };
 </script>
 
@@ -18,6 +24,7 @@ const openForm = async () => {
         variant="ghost"
         block
         class="gap-x-3 p-3 px-6"
+        @click="openQrscan"
         >Scan QR Code</UButton
       >
       <hr class="my-2 border-t border-primary-200 dark:border-primary-900" />
