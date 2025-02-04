@@ -62,17 +62,19 @@ async function addAccount(event: FormSubmitEvent<Account>) {
     method: "POST",
     body: [event.data],
   })
-    .then((res) => {
+    .then(async (res) => {
       toast.update(toastid, {
-        message: res.msg,
+        message: res.message,
         type: "success",
       });
+      await refreshNuxtData("accounts");
+      await modal.close();
       loading.value = false;
     })
     .catch((err: Error) => {
       toast.update(toastid, {
         message: err.message,
-        type: "success",
+        type: "error",
       });
       loading.value = false;
       console.error(err);
@@ -86,7 +88,7 @@ async function onError(event: FormErrorEvent) {
 </script>
 
 <template>
-  <UModal title="Setup Using Key" :close="false" :dismissible="false" class="">
+  <UModal title="Setup Using Key" :close="false" :dismissible="false">
     <template #body>
       <UForm
         :schema="accountSchema"
@@ -120,7 +122,6 @@ async function onError(event: FormErrorEvent) {
           <UButton
             class="uppercase mx-auto font-bold font-mono text-primary-600"
             variant="ghost"
-            size="sm"
             @click="showAdvanced = true"
             >show advanced</UButton
           >

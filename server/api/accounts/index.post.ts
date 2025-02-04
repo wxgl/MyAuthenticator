@@ -1,5 +1,5 @@
 export default eventHandler(async (event) => {
-  //   const session = await requireUserSession(event);
+  const session = await requireUserSession(event);
   const { data: accounts, error } = await readValidatedBody(event, (body) =>
     accountsSchema.safeParse(body)
   );
@@ -11,6 +11,6 @@ export default eventHandler(async (event) => {
   await useDrizzle().insert(tables.accounts).values(accounts);
   return {
     status: 200,
-    msg: "Account added successfully",
+    message: "Added successfully",
   };
 });

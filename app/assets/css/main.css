@@ -14,11 +14,11 @@
   --color-primary-900: var(--ui-color-primary-900);
   --color-primary-950: var(--ui-color-primary-950);
 
-  --font-sans: "Geist", sans-serif;
+  /* --font-sans: "Inter", sans-serif; */
 }
 
 body {
-  @apply bg-gray-100 dark:bg-gray-950;
+  @apply bg-gray-100 dark:bg-gray-950 font-sans;
 }
 
 .flex-center {

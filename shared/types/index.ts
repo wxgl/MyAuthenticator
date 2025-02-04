@@ -16,7 +16,26 @@ export const accountSchema = z.object({
   counter: z.number().min(0).max(3000),
 });
 
+export const accountEditSchema = accountSchema.pick({
+  label: true,
+  issuer: true,
+  icon: true,
+});
+
+export const loginSchema = z.object({
+  username: z.string().trim().min(5),
+  password: z
+    .string()
+    .trim()
+    .min(8)
+    .regex(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=(.*?[#?!@$%^&*-]){2,}).{8,}$/
+    ),
+});
+
 export const accountsSchema = z.array(accountSchema);
 
 // TYPES
 export type Account = z.infer<typeof accountSchema>;
+export type AccountEdit = z.infer<typeof accountEditSchema>;
+export type Login = z.infer<typeof loginSchema>;

@@ -5,6 +5,12 @@ export default defineAppConfig({
       primary: "green",
       neutral: "slate",
     },
+    card: {
+      slots: {
+        root: "w-full max-w-xs overflow-hidden",
+        body: "!py-3 px-3 md:px-5 xl:px-8",
+      },
+    },
     button: {
       slots: {
         base: "cursor-pointer",
@@ -49,15 +55,21 @@ export default defineAppConfig({
     modal: {
       slots: {
         overlay: "bg-gray-200/75 dark:bg-gray-950/75 backdrop-blur-sm",
-        content: "divide-y-0",
+        content: "divide-y-0 px-2",
         title: "text-center uppercase",
         header: "pt-3 pb-0",
       },
       variants: {
+        transition: {
+          true: {
+            content:
+              "data-[state=open]:animate-[slide-in-from-bottom_250ms_ease-in-out] data-[state=closed]:animate-[slide-out-to-bottom_250ms_ease-in-out] data-[state=open]:sm:animate-[scale-in_200ms_ease-out] data-[state=closed]:sm:animate-[scale-out_200ms_ease-in]",
+          },
+        },
         fullscreen: {
           false: {
             content:
-              "max-w-sm sm:max-w-md w-[90vw] h-auto rounded-[calc(var(--ui-radius)*2)] shadow-lg ring",
+              "max-w-sm w-full sm:max-w-md h-max bottom-0 inset-x-0 top-auto mx-auto translate-x-0 translate-y-0 rounded-t-2xl sm:rounded-[calc(var(--ui-radius)*2)] shadow-lg ring sm:top-[50%] sm:left-[50%] sm:bottom-auto sm:right-auto sm:translate-x-[-50%] sm:translate-y-[-50%]",
           },
         },
       },

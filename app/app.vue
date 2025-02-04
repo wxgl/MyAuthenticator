@@ -5,7 +5,9 @@ import "@steveyuowo/vue-hot-toast/vue-hot-toast.css";
 
 <template>
   <UApp>
-    <NuxtPage />
-    <Toaster />
+    <UContainer>
+      <NuxtPage />
+      <Toaster />
+    </UContainer>
   </UApp>
 </template>
