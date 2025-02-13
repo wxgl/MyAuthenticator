@@ -33,9 +33,15 @@ export const loginSchema = z.object({
     ),
 });
 
+export const iconSchema = z.object({
+  label: z.string(),
+  icon: z.string(),
+});
+
 export const accountsSchema = z.array(accountSchema);
 
 // TYPES
 export type Account = z.infer<typeof accountSchema>;
 export type AccountEdit = z.infer<typeof accountEditSchema>;
 export type Login = z.infer<typeof loginSchema>;
+export type Icon = z.infer<typeof iconSchema>;

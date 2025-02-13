@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import * as OTPAuth from "otpauth";
+import Edit from "./Edit.vue";
 
 const props = defineProps<{
   account: Account;
 }>();
+
+const modal = useModal();
 
 const OTP =
   props.account.type === "TOTP"
@@ -124,6 +127,12 @@ onMounted(() => {
                     icon="i-heroicons-pencil-solid"
                     variant="soft"
                     size="md"
+                    @click="
+                      modal.open(Edit, {
+                        account: account,
+                        accountId: account.id,
+                      })
+                    "
                   />
                   <span>Edit</span>
                 </div>

@@ -24,30 +24,7 @@ const showAdvanced = ref(false);
 
 const loading = ref(false);
 
-const { data: icons } = await useLazyFetch(
-  "https://api.iconify.design/search",
-  {
-    query: {
-      query: searchIssuerDebounced,
-      limit: 999,
-      prefixes:
-        "logos,simple-icons,devicon,token-branded,mdi,ri,line-icons,articons,teeny-icons,mingcute",
-    },
-    transform: (data: { icons: string[] }) => {
-      if (!data.icons.length)
-        return [
-          {
-            label: searchIssuerDebounced.value,
-            icon: "i-marketeq-user",
-          },
-        ];
-      return data.icons.map((icon) => ({
-        label: icon.split(":")[1]?.split("-")[0],
-        icon: `i-${icon.replace(":", "-")}`,
-      }));
-    },
-  }
-);
+const icons = ref<Icon[]>([]);
 
 const updateIssuerAndIcon = () => {
   if (!selectedIssuer.value) return;
@@ -85,6 +62,10 @@ async function onError(event: FormErrorEvent) {
   console.log(event.errors[0]);
   toast.error(event.errors[0]?.message!);
 }
+
+watch(searchIssuerDebounced, async (query) => {
+  icons.value = await getIcons(query);
+});
 </script>
 
 <template>
