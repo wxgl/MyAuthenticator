@@ -45,7 +45,7 @@ async function addAccount(event: FormSubmitEvent<Account>) {
         type: "success",
       });
       await refreshNuxtData("accounts");
-      await modal.close();
+      await closeModal();
       loading.value = false;
     })
     .catch((err: Error) => {
@@ -91,13 +91,23 @@ watch(searchIssuerDebounced, async (query) => {
           />
         </UFormField>
         <UFormField size="xl" label="Label" name="label" required>
-          <UInput size="xl" v-model="state.label" required />
+          <UInput
+            size="xl"
+            v-model="state.label"
+            required
+            icon="i-heroicons-envelope"
+          />
         </UFormField>
         <UFormField size="xl" label="Type" name="type" required>
           <USelect size="xl" v-model="state.type" :items="otpTypes" />
         </UFormField>
         <UFormField size="xl" label="Key" name="secret" required>
-          <UInput size="xl" v-model="state.secret" required />
+          <UInput
+            size="xl"
+            v-model="state.secret"
+            required
+            icon="i-heroicons-key"
+          />
         </UFormField>
         <div v-show="!showAdvanced" class="flex-center w-full">
           <UButton
@@ -158,7 +168,7 @@ watch(searchIssuerDebounced, async (query) => {
         </div>
         <div class="flex w-full justify-end space-x-4 mt-4 px-3">
           <UButton
-            @click="modal.close()"
+            @click="closeModal"
             label="Cancel"
             color="neutral"
             variant="ghost"

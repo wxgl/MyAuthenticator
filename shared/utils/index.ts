@@ -24,3 +24,9 @@ export const getIcons = async (query: string) => {
       }));
   });
 };
+
+export const closeModal = async () => {
+  const modal = useModal();
+  modal.reset();
+  await modal.close();
+};

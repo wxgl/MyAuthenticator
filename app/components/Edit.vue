@@ -6,8 +6,6 @@ const props = defineProps<{ account: AccountEdit; accountId: number }>();
 
 const state = reactive<AccountEdit>({ ...props.account });
 
-const modal = useModal();
-
 const searchIcon = ref("");
 
 const searchIconDebounced = refDebounced(searchIcon, 500);
@@ -15,11 +13,6 @@ const searchIconDebounced = refDebounced(searchIcon, 500);
 const icons = ref<Icon[]>([]);
 
 const loading = ref(false);
-
-const closeModal = async () => {
-  modal.reset();
-  await modal.close();
-};
 
 async function updateAccount(event: FormSubmitEvent<AccountEdit>) {
   loading.value = true;
@@ -72,7 +65,7 @@ watch(searchIconDebounced, async (query) => {
             ignore-filter
             :items="icons || []"
             :icon="state.icon"
-            placeholder="Google"
+            :placeholder="state.issuer"
             v-model:search-term="searchIcon"
             size="xl"
             value-key="icon"
@@ -81,10 +74,20 @@ watch(searchIconDebounced, async (query) => {
           />
         </UFormField>
         <UFormField size="xl" label="Issuer" name="issuer" required>
-          <UInput size="xl" v-model="state.issuer" required />
+          <UInput
+            size="xl"
+            v-model="state.issuer"
+            required
+            icon="i-heroicons-building-office-2"
+          />
         </UFormField>
         <UFormField size="xl" label="Label" name="label" required>
-          <UInput size="xl" v-model="state.label" required />
+          <UInput
+            size="xl"
+            v-model="state.label"
+            required
+            icon="i-heroicons-envelope"
+          />
         </UFormField>
         <div class="flex w-full justify-end space-x-4 mt-4 px-3">
           <UButton

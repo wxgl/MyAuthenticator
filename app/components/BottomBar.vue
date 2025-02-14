@@ -9,10 +9,10 @@ const modal = useModal();
     class="fixed bottom-0 z-10 flex items-center px-2 inset-x-0 h-12 bg-white ring-1 ring-gray-200 dark:ring-gray-800 dark:bg-gray-900 w-full max-w-sm xl:max-w-md mx-auto rounded-t-3xl"
   >
     <UButton
-      icon="i-heroicons-magnifying-glass-16-solid"
+      icon="i-lucide-menu"
       size="xl"
       color="neutral"
-      class="hover:bg-transparent rotate-90"
+      class="hover:bg-transparent"
       variant="ghost"
     />
     <UButton
@@ -24,7 +24,7 @@ const modal = useModal();
       <UIcon name="i-heroicons-plus-16-solid" class="h-full w-full" />
     </UButton>
     <UButton
-      icon="i-lucide-menu"
+      icon="i-heroicons-magnifying-glass-16-solid"
       size="xl"
       color="neutral"
       class="hover:bg-transparent"

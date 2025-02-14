@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import * as OTPAuth from "otpauth";
+import { toast } from "@steveyuowo/vue-hot-toast";
 import Edit from "./Edit.vue";
+import Share from "./Share.vue";
 
 const props = defineProps<{
   account: Account;
@@ -45,6 +47,28 @@ const updateToken = () => {
   intervel.value = setInterval(() => {
     updateToken();
   }, props.account.period * 1000);
+};
+
+const deleteAccount = async () => {
+  const toastid = toast.loading("loading...");
+  $fetch("/api/accounts", {
+    method: "DELETE",
+    query: { id: props.account.id },
+  })
+    .then(async (res) => {
+      toast.update(toastid, {
+        message: res.message,
+        type: "success",
+      });
+      await refreshNuxtData("accounts");
+    })
+    .catch((err: Error) => {
+      console.error(err);
+      toast.update(toastid, {
+        message: err.message,
+        type: "error",
+      });
+    });
 };
 
 onMounted(() => {
@@ -141,6 +165,11 @@ onMounted(() => {
                     icon="i-heroicons-qr-code-solid"
                     variant="soft"
                     size="md"
+                    @click="
+                      modal.open(Share, {
+                        uri: OTP.toString(),
+                      })
+                    "
                   />
                   <span>Share</span>
                 </div>
@@ -171,6 +200,7 @@ onMounted(() => {
                   variant="soft"
                   size="md"
                   color="error"
+                  @click="deleteAccount"
                 />
               </div>
             </Transition>
