@@ -49,6 +49,16 @@ const updateToken = () => {
   }, props.account.period * 1000);
 };
 
+const openEdit = () => {
+  modal.open(Edit, { account: props.account, accountId: props.account.id });
+  close();
+};
+
+const openShare = () => {
+  modal.open(Share, { uri: OTP.toString() });
+  close();
+};
+
 const deleteAccount = async () => {
   const toastid = toast.loading("loading...");
   $fetch("/api/accounts", {
@@ -151,12 +161,7 @@ onMounted(() => {
                     icon="i-heroicons-pencil-solid"
                     variant="soft"
                     size="md"
-                    @click="
-                      modal.open(Edit, {
-                        account: account,
-                        accountId: account.id,
-                      })
-                    "
+                    @click="openEdit"
                   />
                   <span>Edit</span>
                 </div>
@@ -165,11 +170,7 @@ onMounted(() => {
                     icon="i-heroicons-qr-code-solid"
                     variant="soft"
                     size="md"
-                    @click="
-                      modal.open(Share, {
-                        uri: OTP.toString(),
-                      })
-                    "
+                    @click="openShare"
                   />
                   <span>Share</span>
                 </div>
@@ -227,29 +228,5 @@ onMounted(() => {
   100% {
     stroke-dashoffset: 0px;
   }
-}
-
-.slide-enter-active,
-.slide2-enter-active,
-.slide-leave-active,
-.slide2-leave-active {
-  transition: transform 500ms ease-in-out 0s;
-}
-
-.slide-enter-from,
-.slide2-enter-from,
-.slide-leave-to {
-  transform: translateX(320px);
-}
-.slide2-leave-to {
-  transform: translateX(-320px);
-}
-.slide-enter-to,
-.slide2-enter-to,
-.slide-leave-from {
-  transform: translateX(0px);
-}
-.slide2-leave-from {
-  transform: translateX(-0px);
 }
 </style>

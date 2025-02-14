@@ -33,3 +33,27 @@ body {
 .VueHotToast__toast {
   @apply !p-1.5 !font-medium;
 }
+
+.slide-enter-active,
+.slide2-enter-active,
+.slide-leave-active,
+.slide2-leave-active {
+  @apply transition-transform duration-500 ease-in-out;
+}
+
+.slide-enter-from,
+.slide2-enter-from,
+.slide-leave-to {
+  @apply translate-x-80;
+}
+.slide2-leave-to {
+  @apply -translate-x-80;
+}
+.slide-enter-to,
+.slide2-enter-to,
+.slide-leave-from {
+  @apply translate-x-0;
+}
+.slide2-leave-from {
+  @apply -translate-x-0;
+}
