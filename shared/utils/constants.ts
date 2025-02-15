@@ -1,3 +1,5 @@
+export const defaultIcon = "i-solar-user-bold";
+
 export const otpTypes = [
   {
     label: "Time Based (TOTP)",

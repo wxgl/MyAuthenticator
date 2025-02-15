@@ -3,47 +3,50 @@ import { QrcodeStream, QrcodeCapture } from "vue-qrcode-reader";
 import type { DetectedBarcode } from "barcode-detector/pure";
 import { toast } from "@steveyuowo/vue-hot-toast";
 
-const modal = useModal();
-
 const state = reactive({
   errorMsg: "",
   error: false,
   loading: true,
 });
 
+const extractAccountsFromQrCodeData = async (data: string) => {
+  if (data.startsWith("otpauth://")) return await extractAccountsFromUri(data);
+  else if (data.startsWith("otpauth-migration://offline")) {
+    // TODO: Implement this
+    return;
+  } else return;
+};
+
 const onDetect = async (response: DetectedBarcode[]) => {
   console.log(response);
-
-  //   response.forEach(async (res) => {
-  //     const toastId = toast.loading("Loading...");
-  //     const accounts = handleQrcodeData(res.rawValue);
-  //     if (!accounts) {
-  //       toast.update(toastId, {
-  //         type: "error",
-  //         message: "Invalid Qrcode !!",
-  //       });
-  //       return;
-  //     }
-  //     await $fetch("/api/accounts", {
-  //       method: "post",
-  //       body: accounts,
-  //     })
-  //       .then(async (data) => {
-  //         toast.update(toastId, {
-  //           type: "success",
-  //           message: "Added successfully",
-  //         });
-  //         await refreshNuxtData("accounts");
-  //         modal.close();
-  //       })
-  //       .catch((err: Error) => {
-  //         console.log(err);
-  //         toast.update(toastId, {
-  //           type: "error",
-  //           message: err.message,
-  //         });
-  //       });
-  //   });
+  response.forEach(async (res) => {
+    const toastId = toast.loading("Loading...");
+    const accounts: Accounts =
+      (await extractAccountsFromQrCodeData(res.rawValue)) ?? [];
+    if (!accounts.length) {
+      toast.update(toastId, { message: "Invalid Qrcode", type: "error" });
+      return;
+    }
+    await $fetch("/api/accounts", {
+      method: "POST",
+      body: accounts,
+    })
+      .then(async (res) => {
+        toast.update(toastId, {
+          message: res.message,
+          type: "success",
+        });
+        await refreshNuxtData("accounts");
+        await closeModal();
+      })
+      .catch((err: Error) => {
+        toast.update(toastId, {
+          message: err.message,
+          type: "error",
+        });
+        console.error(err);
+      });
+  });
 };
 
 const onReady = (capabilities: MediaTrackCapabilities) => {

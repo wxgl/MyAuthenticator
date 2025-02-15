@@ -88,7 +88,9 @@ watch(searchIssuerDebounced, async (query) => {
             v-model="selectedIssuer"
             @update:model-value="updateIssuerAndIcon"
             required
-          />
+          >
+            <template #empty>Type something to search</template>
+          </UInputMenu>
         </UFormField>
         <UFormField size="xl" label="Label" name="label" required>
           <UInput

@@ -28,7 +28,7 @@ async function updateAccount(event: FormSubmitEvent<AccountEdit>) {
         type: "success",
       });
       await refreshNuxtData("accounts");
-      closeModal();
+      await closeModal();
       loading.value = false;
     })
     .catch((err: Error) => {
@@ -71,7 +71,9 @@ watch(searchIconDebounced, async (query) => {
             value-key="icon"
             v-model="state.icon"
             required
-          />
+          >
+            <template #empty>Type something to search</template>
+          </UInputMenu>
         </UFormField>
         <UFormField size="xl" label="Issuer" name="issuer" required>
           <UInput

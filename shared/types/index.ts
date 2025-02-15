@@ -13,7 +13,7 @@ export const accountSchema = z.object({
   algorithm: algorithmSchema,
   digits: z.number().min(6).max(8),
   period: z.number().min(5).max(60),
-  counter: z.number().min(0).max(3000),
+  counter: z.number().min(0),
 });
 
 export const accountEditSchema = accountSchema.pick({
@@ -42,6 +42,7 @@ export const accountsSchema = z.array(accountSchema);
 
 // TYPES
 export type Account = z.infer<typeof accountSchema>;
+export type Accounts = z.infer<typeof accountsSchema>;
 export type AccountEdit = z.infer<typeof accountEditSchema>;
 export type Login = z.infer<typeof loginSchema>;
 export type Icon = z.infer<typeof iconSchema>;
