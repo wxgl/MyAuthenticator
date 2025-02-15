@@ -19,6 +19,8 @@ const token = ref("0");
 
 const intervel = ref<NodeJS.Timeout>();
 
+const percentage = ref(0);
+
 const deleteConfirmation = ref(false);
 
 const options = ref(null);
@@ -42,11 +44,13 @@ const copyToken = () => {
 };
 
 const updateToken = () => {
-  token.value = OTP.generate();
-  if (intervel.value) clearInterval(intervel.value);
-  intervel.value = setInterval(() => {
-    updateToken();
-  }, props.account.period * 1000);
+  const period = props.account.period;
+  const remainingSeconds = period * (1 - ((Date.now() / 1000 / period) % 1));
+  percentage.value = Math.round(
+    (remainingSeconds / props.account.period) * 280
+  );
+  if (remainingSeconds < 2 || remainingSeconds > period - 2)
+    token.value = OTP.generate();
 };
 
 const openEdit = () => {
@@ -82,7 +86,13 @@ const deleteAccount = async () => {
 };
 
 onMounted(() => {
-  updateToken();
+  token.value = OTP.generate();
+  if (props.account.type == "TOTP")
+    intervel.value = setInterval(updateToken, 1000);
+});
+
+onUnmounted(() => {
+  clearInterval(intervel.value);
 });
 </script>
 
@@ -98,8 +108,8 @@ onMounted(() => {
             class="stroke-primary-500 rounded-full -rotate-90"
           >
             <circle
-              :style="{ animationDuration: `${account.period}s` }"
-              class="prog-bar fill-gray-100 dark:fill-black"
+              :style="{ strokeDashoffset: `${percentage}px` }"
+              class="stroke-[5px] [stroke-dashoffset:280px] transition-all duration-1000 ease-linear [stroke-dasharray:280px] [stroke-linecap:round] fill-gray-100 dark:fill-black"
               cx="50"
               cy="50"
               r="45"
@@ -211,22 +221,3 @@ onMounted(() => {
     </div>
   </UCard>
 </template>
-
-<style scoped>
-.prog-bar {
-  stroke-width: 5px;
-  stroke-linecap: round;
-  stroke-dashoffset: 280px;
-  stroke-dasharray: 280px;
-  animation: progress 0s linear 0s infinite;
-}
-
-@keyframes progress {
-  0% {
-    stroke-dashoffset: 280px;
-  }
-  100% {
-    stroke-dashoffset: 0px;
-  }
-}
-</style>
