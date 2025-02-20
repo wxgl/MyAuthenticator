@@ -29,7 +29,7 @@ const renderAs = ref<RenderAs>("svg");
           class="text-gray-600 dark:text-gray-300 leading-normal text-center font-medium text-xs max-w-xs"
         >
           Scan the above QR code with any authenticator app like Google
-          Authenticator to copy this account {{ uri }}
+          Authenticator to copy this account
         </span>
       </div>
     </template>

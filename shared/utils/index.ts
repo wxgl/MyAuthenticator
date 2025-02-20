@@ -1,4 +1,5 @@
 import * as OTPAuth from "otpauth";
+import { Payload, type Payload_OtpParameters } from "./proto/google";
 
 export const getIcons = async (query: string) => {
   return await $fetch<{ icons: string[] }>(
@@ -68,5 +69,60 @@ export const extractAccountsFromUri = async (uri: string) => {
     period: parseInt(period),
     counter: parseInt(counter),
   });
+  return accounts;
+};
+
+export const extractAccountsFromGoogleUri = async (uri: string) => {
+  const url = new URL(uri);
+  const data = url.searchParams.get("data");
+  if (!data) return;
+  let otpParameters: Payload_OtpParameters[] = [];
+  try {
+    const payload = Payload.decode(
+      Uint8Array.from(atob(data), (c) => c.charCodeAt(0))
+    );
+
+    otpParameters = payload.otpParameters;
+  } catch {
+    return;
+  }
+  if (!otpParameters.length) return;
+  const accounts: Account[] = [];
+  for (const otp of otpParameters) {
+    const type =
+      otp.type > 0
+        ? otp.type === 1
+          ? otpSchema.Values.HOTP
+          : otpSchema.Values.TOTP
+        : undefined;
+    const algorithm = otp.algorithm
+      ? {
+          [-1]: undefined,
+          0: undefined,
+          1: algorithmSchema.Values.SHA1,
+          2: algorithmSchema.Values.SHA256,
+          3: algorithmSchema.Values.SHA512,
+          4: undefined,
+        }[otp.algorithm]
+      : undefined;
+    const digits = otp.digits > 0 ? (otp.digits === 1 ? 6 : 8) : undefined;
+    if (!type || !algorithm || !digits || !otp.secret || !otp.name) continue;
+    accounts.push({
+      type: type,
+      issuer: otp.issuer,
+      label: otp.name,
+      icon: await matchIcon(otp.issuer),
+      secret: new OTPAuth.Secret({
+        buffer: otp.secret.buffer.slice(
+          otp.secret.byteOffset,
+          otp.secret.byteOffset + otp.secret.byteLength
+        ),
+      }).base32,
+      algorithm: algorithm,
+      digits: digits,
+      period: 30,
+      counter: otp.counter ?? 0,
+    });
+  }
   return accounts;
 };

@@ -1,9 +1,16 @@
+import { separator } from "#build/ui";
+
 export default defineAppConfig({
   // https://ui3.nuxt.dev/getting-started/theme#design-system
   ui: {
     colors: {
       primary: "green",
       neutral: "slate",
+    },
+    separator: {
+      slots: {
+        label: "text-xs font-mono",
+      },
     },
     card: {
       slots: {
@@ -56,8 +63,8 @@ export default defineAppConfig({
       slots: {
         overlay: "bg-gray-200/75 dark:bg-gray-950/75 backdrop-blur-sm",
         content: "divide-y-0 px-2",
-        title: "text-center uppercase",
-        header: "pt-3 pb-0",
+        title: "uppercase",
+        header: "pt-3 pb-0 justify-center min-h-auto",
       },
       variants: {
         transition: {
@@ -74,5 +81,9 @@ export default defineAppConfig({
         },
       },
     },
+  },
+  theme: {
+    radius: 0.25,
+    blackAsPrimary: false,
   },
 });

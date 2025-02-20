@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { QrcodeStream, QrcodeCapture } from "vue-qrcode-reader";
 import type { DetectedBarcode } from "barcode-detector/pure";
 import { toast } from "@steveyuowo/vue-hot-toast";
@@ -11,10 +11,9 @@ const state = reactive({
 
 const extractAccountsFromQrCodeData = async (data: string) => {
   if (data.startsWith("otpauth://")) return await extractAccountsFromUri(data);
-  else if (data.startsWith("otpauth-migration://offline")) {
-    // TODO: Implement this
-    return;
-  } else return;
+  else if (data.startsWith("otpauth-migration://offline"))
+    return await extractAccountsFromGoogleUri(data);
+  else return;
 };
 
 const onDetect = async (response: DetectedBarcode[]) => {
@@ -92,10 +91,7 @@ const onError = (error: Error) => {
         <UIcon name="i-heroicons-camera-solid" />
         <span>{{ state.errorMsg }}</span>
       </div>
-      <div class="w-full relative flex-center mt-4 mb-7">
-        <div class="relative border-t border-gray-700 w-full"></div>
-        <div class="absolute bg-gray-900 text-sm px-3 p-1 font-mono">OR</div>
-      </div>
+      <USeparator label="OR" color="neutral" size="sm" :ui="{ root: 'my-4' }" />
       <div class="flex-center relative">
         <UButton size="sm" variant="soft" icon="i-heroicons-photo-16-solid">
           <label for="fileinput" class="cursor-pointer">Upload Image</label>
