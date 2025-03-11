@@ -113,7 +113,7 @@ watch(searchIssuerDebounced, async (query) => {
         </UFormField>
         <div v-show="!showAdvanced" class="flex-center w-full">
           <UButton
-            class="uppercase mx-auto font-bold font-mono text-primary-600"
+            class="uppercase mx-auto text-xs font-bold font-mono text-primary-600"
             variant="ghost"
             @click="showAdvanced = true"
             >show advanced</UButton

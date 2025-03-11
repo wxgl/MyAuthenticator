@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Add from "./Add.vue";
-import Settings from "./Settings.vue";
+import Menu from "./Menu.vue";
 
 const modal = useModal();
 </script>
@@ -15,7 +15,7 @@ const modal = useModal();
       color="neutral"
       class="hover:bg-transparent"
       variant="ghost"
-      @click="modal.open(Settings)"
+      @click="modal.open(Menu)"
     />
     <UButton
       class="relative mx-auto bottom-6 rounded-full h-12 w-12 active:translate-y-0.5 flex-center"

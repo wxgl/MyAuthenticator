@@ -37,6 +37,7 @@ export default defineAppConfig({
           xl: {
             leadingIcon: "size-4",
             itemLeadingIcon: "size-4",
+            base: "py-[9px]",
           },
         },
       },
@@ -44,6 +45,16 @@ export default defineAppConfig({
     input: {
       slots: {
         root: "w-full",
+      },
+      variants: {
+        size: {
+          xl: {
+            base: "py-[9px]",
+          },
+          lg: {
+            base: "py-[9px]",
+          },
+        },
       },
     },
     formField: {
@@ -84,6 +95,6 @@ export default defineAppConfig({
   },
   theme: {
     radius: 0.25,
-    blackAsPrimary: false,
+    blackAsPrimary: true,
   },
 });
