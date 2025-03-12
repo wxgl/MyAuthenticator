@@ -8,7 +8,7 @@ const state = reactive<AccountEdit>({ ...props.account });
 
 const searchIcon = ref("");
 
-const searchIconDebounced = refDebounced(searchIcon, 500);
+const searchIconDebounced = refDebounced(searchIcon, 300);
 
 const icons = ref<Icon[]>([]);
 

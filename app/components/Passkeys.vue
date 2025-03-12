@@ -82,7 +82,7 @@ const deletePasskey = async (id: string) => {
 </script>
 
 <template>
-  <div class="py-4 px-2 flex-col">
+  <div class="py-4 flex-col">
     <form class="flex justify-end space-x-2" @submit.prevent="addPasskey">
       <UInput
         color="neutral"

@@ -41,6 +41,7 @@ const optionsToggleHandler = () => {
 
 const copyToken = () => {
   navigator.clipboard.writeText(token.value);
+  toast.success("Copied to clipboard");
 };
 
 const updateToken = () => {

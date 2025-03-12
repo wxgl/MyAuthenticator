@@ -3,6 +3,7 @@ import Add from "./Add.vue";
 import Menu from "./Menu.vue";
 
 const modal = useModal();
+const showSearchBar = useState("searchBar");
 </script>
 
 <template>
@@ -31,6 +32,7 @@ const modal = useModal();
       color="neutral"
       class="hover:bg-transparent"
       variant="ghost"
+      @click="showSearchBar = !showSearchBar"
     />
   </div>
 </template>

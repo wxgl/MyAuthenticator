@@ -1,5 +1,3 @@
-import { separator } from "#build/ui";
-
 export default defineAppConfig({
   // https://ui3.nuxt.dev/getting-started/theme#design-system
   ui: {
@@ -69,6 +67,9 @@ export default defineAppConfig({
           },
         },
       },
+    },
+    skeleton: {
+      base: "bg-white dark:bg-gray-900",
     },
     modal: {
       slots: {

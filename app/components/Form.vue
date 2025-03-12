@@ -17,7 +17,7 @@ const state = reactive<Account>({
 });
 
 const searchIssuer = ref("");
-const searchIssuerDebounced = refDebounced(searchIssuer, 500);
+const searchIssuerDebounced = refDebounced(searchIssuer, 300);
 const selectedIssuer = ref<{ label: string; icon: string }>();
 
 const showAdvanced = ref(false);
