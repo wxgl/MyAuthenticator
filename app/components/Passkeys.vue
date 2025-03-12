@@ -47,8 +47,8 @@ const addPasskey = async () => {
       await refreshNuxtData("passkeys");
       loading.value = false;
     })
-    .catch((err: Error) => {
-      toast.error(err.message);
+    .catch((err) => {
+      toast.error(err.data.message);
       loading.value = false;
       console.error(err);
     });
@@ -71,10 +71,10 @@ const deletePasskey = async (id: string) => {
       });
       await refreshNuxtData("passkeys");
     })
-    .catch((err: Error) => {
+    .catch((err) => {
       console.error(err);
       toast.update(toastid, {
-        message: err.message,
+        message: err.data.message,
         type: "error",
       });
     });

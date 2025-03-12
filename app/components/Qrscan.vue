@@ -38,9 +38,9 @@ const onDetect = async (response: DetectedBarcode[]) => {
         await refreshNuxtData("accounts");
         await closeModal();
       })
-      .catch((err: Error) => {
+      .catch((err) => {
         toast.update(toastId, {
-          message: err.message,
+          message: err.data.message,
           type: "error",
         });
         console.error(err);

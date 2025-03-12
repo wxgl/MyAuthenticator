@@ -31,9 +31,9 @@ async function updateAccount(event: FormSubmitEvent<AccountEdit>) {
       await closeModal();
       loading.value = false;
     })
-    .catch((err: Error) => {
+    .catch((err) => {
       toast.update(toastid, {
-        message: err.message,
+        message: err.data.message,
         type: "error",
       });
       loading.value = false;

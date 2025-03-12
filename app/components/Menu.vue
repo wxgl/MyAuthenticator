@@ -6,17 +6,6 @@ const logout = async () => {
   reloadNuxtApp({ path: "/", force: true });
 };
 
-// const addPasskey = async () => {
-//   await register({
-//     userName: "ADMIN",
-//     displayName: "MYRDP",
-//   })
-//     .then(async (d) => console.log(d))
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
-
 const openThemePicker = ref(false);
 const openPasskeys = ref(false);
 </script>

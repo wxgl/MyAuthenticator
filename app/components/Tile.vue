@@ -76,10 +76,10 @@ const deleteAccount = async () => {
       });
       await refreshNuxtData("accounts");
     })
-    .catch((err: Error) => {
+    .catch((err) => {
       console.error(err);
       toast.update(toastid, {
-        message: err.message,
+        message: err.data.message,
         type: "error",
       });
     });
