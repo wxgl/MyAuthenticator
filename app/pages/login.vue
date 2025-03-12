@@ -2,7 +2,9 @@
 import type { FormErrorEvent, FormSubmitEvent } from "#ui/types";
 import { toast } from "@steveyuowo/vue-hot-toast";
 
-const { fetch: refreshSesion, loggedIn } = useUserSession();
+const { fetch: refreshSesion } = useUserSession();
+
+const { authenticate } = useWebAuthn();
 
 const state = reactive({
   username: "",
@@ -10,6 +12,20 @@ const state = reactive({
 });
 
 const isLoading = ref(false);
+
+const loginWithPasskey = async () => {
+  await authenticate()
+    .then(async (res) => {
+      if (!res) return;
+      await refreshSesion();
+      navigateTo("/");
+      toast.success("Login successful");
+    })
+    .catch((err: Error) => {
+      console.error(err);
+      toast.error(err.message);
+    });
+};
 
 const onSubmit = async (event: FormSubmitEvent<Login>) => {
   isLoading.value = true;
@@ -49,20 +65,14 @@ async function onError(event: FormErrorEvent) {
       <UForm
         :schema="loginSchema"
         :state="state"
-        class="flex flex-col items-center"
+        class="flex flex-col items-center mb-2"
         @submit="onSubmit"
         @error="onError"
       >
         <span className="text-lg xs:text-xl font-semibold uppercase mb-4 mt-2"
           >Login</span
         >
-        <UFormField
-          label="Username"
-          size="lg"
-          :ui="{
-            root: 'mb-4',
-          }"
-        >
+        <UFormField label="Username" size="lg">
           <UInput
             v-model="state.username"
             placeholder="John"
@@ -83,11 +93,25 @@ async function onError(event: FormErrorEvent) {
             required
           />
         </UFormField>
-        <div class="flex flex-center mt-2 p-2 relative">
+        <div class="flex flex-center p-2 relative">
           <UButton :disabled="isLoading" type="submit" variant="soft" size="lg"
             >submit</UButton
           >
         </div>
+        <USeparator
+          label="OR"
+          color="neutral"
+          size="sm"
+          :ui="{ root: 'my-4', label: 'text-[10px]' }"
+        />
+        <UButton
+          icon="i-carbon-fingerprint-recognition"
+          variant="soft"
+          color="primary"
+          size="lg"
+          @click="loginWithPasskey"
+          >Login with Passkey</UButton
+        >
       </UForm>
     </UCard>
   </div>

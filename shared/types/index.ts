@@ -1,3 +1,4 @@
+import { idText } from "typescript";
 import { z } from "zod";
 
 export const otpSchema = z.enum(["TOTP", "HOTP"]);
@@ -15,6 +16,8 @@ export const accountSchema = z.object({
   period: z.number().min(5).max(60),
   counter: z.number().min(0),
 });
+
+export const accountsSchema = z.array(accountSchema);
 
 export const accountEditSchema = accountSchema.pick({
   label: true,
@@ -39,7 +42,16 @@ export const iconSchema = z.object({
   icon: z.string(),
 });
 
-export const accountsSchema = z.array(accountSchema);
+export const passkeyUser = z.object({
+  userName: z.string().nonempty(),
+  displayName: z.string().nonempty(),
+});
+
+export const passkeyTableSchema = z.object({
+  id: z.string().nonempty(),
+  displayName: z.string().nonempty(),
+  createdAt: z.string().nonempty(),
+});
 
 // TYPES
 export type Account = z.infer<typeof accountSchema>;
@@ -47,3 +59,5 @@ export type Accounts = z.infer<typeof accountsSchema>;
 export type AccountEdit = z.infer<typeof accountEditSchema>;
 export type Login = z.infer<typeof loginSchema>;
 export type Icon = z.infer<typeof iconSchema>;
+export type PasskeyUser = z.infer<typeof passkeyUser>;
+export type Passkey = z.infer<typeof passkeyTableSchema>;

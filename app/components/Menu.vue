@@ -6,7 +6,19 @@ const logout = async () => {
   reloadNuxtApp({ path: "/", force: true });
 };
 
+// const addPasskey = async () => {
+//   await register({
+//     userName: "ADMIN",
+//     displayName: "MYRDP",
+//   })
+//     .then(async (d) => console.log(d))
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
+
 const openThemePicker = ref(false);
+const openPasskeys = ref(false);
 </script>
 
 <template>
@@ -14,7 +26,7 @@ const openThemePicker = ref(false);
     <template #body>
       <UModal
         v-model:open="openThemePicker"
-        title="Theme Picker"
+        title="Theme"
         :ui="{ close: 'top-2 start-6 end-auto' }"
         close-icon="i-lucide-arrow-left"
       >
@@ -33,15 +45,26 @@ const openThemePicker = ref(false);
         </template>
       </UModal>
       <USeparator />
-      <UButton
-        leading-icon="i-carbon-fingerprint-recognition"
-        trailing-icon="i-mingcute-right-line"
-        color="primary"
-        variant="ghost"
-        block
-        class="p-3 px-6 gap-x-5"
-        >Passkeys</UButton
+      <UModal
+        v-model:open="openPasskeys"
+        title="Passkeys"
+        :ui="{ close: 'top-2 start-6 end-auto' }"
+        close-icon="i-lucide-arrow-left"
       >
+        <UButton
+          leading-icon="i-carbon-fingerprint-recognition"
+          trailing-icon="i-mingcute-right-line"
+          color="primary"
+          variant="ghost"
+          block
+          class="p-3 px-6 gap-x-5"
+          @click="openPasskeys = true"
+          >Passkeys</UButton
+        >
+        <template #body>
+          <Passkeys />
+        </template>
+      </UModal>
       <USeparator />
       <UButton
         leading-icon="i-tabler:restore"

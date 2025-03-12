@@ -25,5 +25,8 @@ export default defineNuxtConfig({
     database: true,
     kv: true,
   },
+  auth: {
+    webAuthn: true,
+  },
   compatibilityDate: "2024-11-27",
 });
