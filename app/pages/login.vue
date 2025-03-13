@@ -22,8 +22,8 @@ const loginWithPasskey = async () => {
       toast.success("Login successful");
     })
     .catch((err) => {
-      console.error(err.data.message);
-      toast.error(err.data.message);
+      console.error(err);
+      toast.error(err?.data?.message ?? err);
     });
 };
 
@@ -45,11 +45,11 @@ const onSubmit = async (event: FormSubmitEvent<Login>) => {
     })
     .catch((err) => {
       toast.update(toastid, {
-        message: err.data.message,
+        message: err?.data?.message ?? err,
         type: "error",
       });
       isLoading.value = false;
-      console.error(err.data.message);
+      console.error(err);
     });
 };
 

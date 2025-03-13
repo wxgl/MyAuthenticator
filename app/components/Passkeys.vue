@@ -48,7 +48,7 @@ const addPasskey = async () => {
       loading.value = false;
     })
     .catch((err) => {
-      toast.error(err.data.message);
+      toast.error(err?.data?.message ?? err);
       loading.value = false;
       console.error(err);
     });
@@ -74,7 +74,7 @@ const deletePasskey = async (id: string) => {
     .catch((err) => {
       console.error(err);
       toast.update(toastid, {
-        message: err.data.message,
+        message: err?.data?.message ?? err,
         type: "error",
       });
     });

@@ -40,7 +40,7 @@ const onDetect = async (response: DetectedBarcode[]) => {
       })
       .catch((err) => {
         toast.update(toastId, {
-          message: err.data.message,
+          message: err?.data?.message ?? err,
           type: "error",
         });
         console.error(err);

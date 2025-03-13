@@ -80,7 +80,7 @@ const deleteAccount = async () => {
     .catch((err) => {
       console.error(err);
       toast.update(toastid, {
-        message: err.data.message,
+        message: err?.data?.message ?? err,
         type: "error",
       });
     });

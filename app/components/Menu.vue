@@ -8,6 +8,7 @@ const logout = async () => {
 
 const openThemePicker = ref(false);
 const openPasskeys = ref(false);
+const openBackupAndRestore = ref(false);
 </script>
 
 <template>
@@ -18,6 +19,7 @@ const openPasskeys = ref(false);
         title="Theme"
         :ui="{ close: 'top-2 start-6 end-auto' }"
         close-icon="i-lucide-arrow-left"
+        :dismissible="false"
       >
         <UButton
           leading-icon="i-solar-palette-round-bold"
@@ -39,6 +41,7 @@ const openPasskeys = ref(false);
         title="Passkeys"
         :ui="{ close: 'top-2 start-6 end-auto' }"
         close-icon="i-lucide-arrow-left"
+        :dismissible="false"
       >
         <UButton
           leading-icon="i-carbon-fingerprint-recognition"
@@ -55,16 +58,27 @@ const openPasskeys = ref(false);
         </template>
       </UModal>
       <USeparator />
-      <UButton
-        leading-icon="i-tabler:restore"
-        trailing-icon="i-mingcute-right-line"
-        variant="ghost"
-        color="primary"
-        block
-        class="p-3 px-6 gap-x-5"
+      <UModal
+        v-model:open="openBackupAndRestore"
+        title="Backup & Restore"
+        :ui="{ close: 'top-2 start-6 end-auto' }"
+        close-icon="i-lucide-arrow-left"
+        :dismissible="false"
       >
-        Backup & Restore
-      </UButton>
+        <UButton
+          leading-icon="i-tabler:restore"
+          trailing-icon="i-mingcute-right-line"
+          variant="ghost"
+          color="primary"
+          block
+          class="p-3 px-6 gap-x-5"
+        >
+          Backup & Restore
+        </UButton>
+        <template #body>
+          <BackupAndRestore />
+        </template>
+      </UModal>
       <USeparator />
       <UButton
         leading-icon="i-solar-logout-outline"

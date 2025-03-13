@@ -33,7 +33,7 @@ async function updateAccount(event: FormSubmitEvent<AccountEdit>) {
     })
     .catch((err) => {
       toast.update(toastid, {
-        message: err.data.message,
+        message: err?.data?.message ?? err,
         type: "error",
       });
       loading.value = false;
