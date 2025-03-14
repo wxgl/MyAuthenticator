@@ -48,28 +48,32 @@ export const closeModal = async () => {
   setTimeout(() => modal.reset(), 300);
 };
 
-export const extractAccountsFromUri = async (uri: string) => {
-  let account: OTPAuth.HOTP | OTPAuth.TOTP;
-  try {
-    account = OTPAuth.URI.parse(uri);
-  } catch {
-    return;
-  }
+export const extractAccountsFromUriList = async (uriList: string[]) => {
   const accounts: Accounts = [];
-  const url = new URL(uri);
-  const period = url.searchParams.get("period") ?? "30";
-  const counter = url.searchParams.get("counter") ?? "0";
-  accounts.push({
-    type: uri.includes("totp") ? otpSchema.Values.TOTP : otpSchema.Values.HOTP,
-    issuer: account.issuer,
-    label: account.label,
-    icon: await matchIcon(account.issuer),
-    secret: account.secret.base32,
-    algorithm: algorithmSchema.parse(account.algorithm),
-    digits: account.digits,
-    period: parseInt(period),
-    counter: parseInt(counter),
-  });
+  for (const uri of uriList) {
+    let account: OTPAuth.HOTP | OTPAuth.TOTP;
+    try {
+      account = OTPAuth.URI.parse(uri);
+    } catch {
+      return;
+    }
+    const url = new URL(uri);
+    const period = url.searchParams.get("period") ?? "30";
+    const counter = url.searchParams.get("counter") ?? "0";
+    accounts.push({
+      type: uri.includes("totp")
+        ? otpSchema.Values.TOTP
+        : otpSchema.Values.HOTP,
+      issuer: account.issuer,
+      label: account.label,
+      icon: await matchIcon(account.issuer),
+      secret: account.secret.base32,
+      algorithm: algorithmSchema.parse(account.algorithm),
+      digits: account.digits,
+      period: parseInt(period),
+      counter: parseInt(counter),
+    });
+  }
   return accounts;
 };
 
@@ -209,11 +213,14 @@ export const readFileContent = (file: File) => {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (event) => {
-      const result = event.target?.result as string;
-      resolve(result);
+      if (event.target?.result) {
+        resolve(event.target.result as string);
+      } else {
+        reject(new Error("File reading failed"));
+      }
     };
-    reader.onerror = (error) => {
-      reject(error);
+    reader.onerror = () => {
+      reject(new Error("File reading failed"));
     };
     reader.readAsText(file);
   });

@@ -10,7 +10,8 @@ const state = reactive({
 });
 
 const extractAccountsFromQrCodeData = async (data: string) => {
-  if (data.startsWith("otpauth://")) return await extractAccountsFromUri(data);
+  if (data.startsWith("otpauth://"))
+    return await extractAccountsFromUriList([data]);
   else if (data.startsWith("otpauth-migration://offline"))
     return await extractAccountsFromGoogleUri(data);
   else return;
