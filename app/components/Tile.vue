@@ -4,11 +4,14 @@ import { toast } from "@steveyuowo/vue-hot-toast";
 import Edit from "./Edit.vue";
 import Share from "./Share.vue";
 
+const overlay = useOverlay();
+
+const editModal = overlay.create(Edit);
+const shareModal = overlay.create(Share);
+
 const props = defineProps<{
   account: Account;
 }>();
-
-const modal = useModal();
 
 const OTP =
   props.account.type === "TOTP"
@@ -55,12 +58,12 @@ const updateToken = () => {
 };
 
 const openEdit = () => {
-  modal.open(Edit, { account: props.account, accountId: props.account.id });
+  editModal.open({ account: props.account, accountId: props.account.id });
   close();
 };
 
 const openShare = () => {
-  modal.open(Share, { uri: OTP.toString() });
+  shareModal.open({ uri: OTP.toString() });
   close();
 };
 
@@ -106,11 +109,11 @@ onUnmounted(() => {
         >
           <svg
             viewBox="0 0 100 100"
-            class="stroke-primary-500 rounded-full -rotate-90"
+            class="stroke-(--ui-primary) rounded-full -rotate-90"
           >
             <circle
               :style="{ strokeDashoffset: `${percentage}px` }"
-              class="stroke-[5px] [stroke-dashoffset:280px] transition-all duration-1000 ease-linear [stroke-dasharray:280px] [stroke-linecap:round] fill-gray-100 dark:fill-black"
+              class="stroke-[5px] [stroke-dashoffset:280px] transition-all duration-1000 ease-linear [stroke-dasharray:280px] [stroke-linecap:round] fill-neutral-100 dark:fill-black"
               cx="50"
               cy="50"
               r="45"
@@ -121,7 +124,7 @@ onUnmounted(() => {
           >
             <UIcon
               :name="account.icon"
-              class="text-gray-800 dark:text-gray-200 size-8"
+              class="text-neutral-800 dark:text-neutral-200 size-8"
             />
           </div>
         </div>
@@ -135,7 +138,7 @@ onUnmounted(() => {
           <UTooltip text="Click to copy" class="cursor-pointer">
             <span
               @click="copyToken"
-              class="text-3xl text-gray-800 dark:text-gray-100 font-medium tracking-wide"
+              class="text-3xl text-neutral-800 dark:text-neutral-100 font-medium tracking-wide"
               >{{ token }}</span
             >
           </UTooltip>
@@ -143,7 +146,7 @@ onUnmounted(() => {
       </div>
       <div class="h-full flex items-center ml-auto">
         <UIcon
-          class="cursor-pointer h-6 w-6 text-gray-400 duration-300"
+          class="cursor-pointer h-6 w-6 text-neutral-400 duration-300"
           :class="showOptions && `rotate-180`"
           name="i-heroicons-chevron-right-16-solid"
           @click="optionsToggleHandler"
@@ -160,7 +163,7 @@ onUnmounted(() => {
           <div
             ref="options"
             v-show="showOptions"
-            class="w-60 h-full bg-white dark:bg-gray-900 overflow-hidden rounded-md pl-5 pr-4"
+            class="w-60 h-full bg-white dark:bg-neutral-900 overflow-hidden rounded-[calc(var(--ui-radius)*2)] pl-5 pr-4"
           >
             <Transition name="slide2">
               <div

@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import "tailwindcss" theme(static);
 @import "@nuxt/ui";
 
 @theme {
-  --color-primary-50: var(--ui-color-primary-50);
+  /* --color-primary-50: var(--ui-color-primary-50);
   --color-primary-100: var(--ui-color-primary-100);
   --color-primary-200: var(--ui-color-primary-200);
   --color-primary-300: var(--ui-color-primary-300);
@@ -12,9 +12,9 @@
   --color-primary-700: var(--ui-color-primary-700);
   --color-primary-800: var(--ui-color-primary-800);
   --color-primary-900: var(--ui-color-primary-900);
-  --color-primary-950: var(--ui-color-primary-950);
+  --color-primary-950: var(--ui-color-primary-950); */
 
-  /* --font-sans: "Ubuntu", sans-serif; */
+  /* --font-sans: "Public Sans", sans-serif; */
 }
 
 ::-webkit-scrollbar {
@@ -23,7 +23,7 @@
 }
 
 body {
-  @apply bg-gray-100 dark:bg-gray-950 font-sans transition-transform ease-in-out duration-300;
+  @apply bg-neutral-100 dark:bg-neutral-950 font-sans transition-transform ease-in-out duration-300;
 }
 
 .flex-center {

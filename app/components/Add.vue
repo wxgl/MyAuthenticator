@@ -2,16 +2,21 @@
 import Form from "./Form.vue";
 import Qrscan from "./Qrscan.vue";
 
-const modal = useModal();
+const overlay = useOverlay();
+
+const emit = defineEmits(["close"]);
+
+const formModal = overlay.create(Form);
+const qrModal = overlay.create(Qrscan);
 
 const openForm = async () => {
-  await modal.close();
-  setTimeout(() => modal.open(Form), 300);
+  emit("close");
+  setTimeout(() => formModal.open(), 300);
 };
 
 const openQrscan = async () => {
-  await modal.close();
-  setTimeout(() => modal.open(Qrscan), 300);
+  emit("close");
+  setTimeout(() => qrModal.open(), 300);
 };
 </script>
 
@@ -27,7 +32,7 @@ const openQrscan = async () => {
         @click="openQrscan"
         >Scan QR Code</UButton
       >
-      <hr class="my-2 border-t border-primary-200 dark:border-primary-900" />
+      <hr class="my-2 border-t border-(--ui-primary)/30" />
       <UButton
         color="primary"
         class="gap-x-3 p-3 px-6"

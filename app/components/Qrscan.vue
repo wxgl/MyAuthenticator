@@ -3,6 +3,8 @@ import { QrcodeStream, QrcodeCapture } from "vue-qrcode-reader";
 import type { DetectedBarcode } from "barcode-detector/pure";
 import { toast } from "@steveyuowo/vue-hot-toast";
 
+const emit = defineEmits(["close"]);
+
 const state = reactive({
   errorMsg: "",
   error: false,
@@ -37,7 +39,7 @@ const onDetect = async (response: DetectedBarcode[]) => {
           type: "success",
         });
         await refreshNuxtData("accounts");
-        await closeModal();
+        emit("close");
       })
       .catch((err) => {
         toast.update(toastId, {
@@ -75,7 +77,7 @@ const onError = (error: Error) => {
   <UModal title="Scan QR Code" :close="false">
     <template #body>
       <QrcodeStream
-        class="h-full w-full overflow-hidden rounded-lg border-2 border-gray-700"
+        class="h-full w-full overflow-hidden rounded-[calc(var(--ui-radius)*2)] border-2 border-neutral-700"
         v-if="!state.error"
         @camera-on="onReady"
         @detect="onDetect"

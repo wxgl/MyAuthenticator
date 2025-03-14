@@ -15,7 +15,7 @@ const renderAs = ref<RenderAs>("svg");
     <template #body>
       <div class="flex-center flex-col pb-4">
         <div
-          class="p-2 bg-white rounded-md border-2 dark:border-none border-gray-500 w-max mb-5"
+          class="p-2 bg-white rounded-[calc(var(--ui-radius)*2)] border-2 dark:border-none border-neutral-500 w-max mb-5"
         >
           <QrcodeVue
             :value="uri"
@@ -26,7 +26,7 @@ const renderAs = ref<RenderAs>("svg");
           />
         </div>
         <span
-          class="text-gray-600 dark:text-gray-300 leading-normal text-center font-medium text-xs max-w-xs"
+          class="text-neutral-600 dark:text-neutral-300 leading-normal text-center font-medium text-xs max-w-xs"
         >
           Scan the above QR code with any authenticator app like Google
           Authenticator to copy this account

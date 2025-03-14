@@ -5,7 +5,7 @@
       class="relative h-5 w-5 left-5"
     />
     <input
-      class="bg-transparent pl-8 p-1.5 outline-none border-b border-primary-500 w-full max-w-sm"
+      class="bg-transparent pl-8 p-1.5 outline-none border-b border-(--ui-primary) w-full max-w-sm"
       type="text"
       @input="onInput"
       :value="modalValue"

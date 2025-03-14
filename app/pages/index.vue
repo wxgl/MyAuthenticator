@@ -33,7 +33,7 @@ const showSearchBar = useState("searchBar", () => false);
   >
     <UIcon name="i-heroicons-inbox-stack" class="h-8 w-8" />
     <span class="text-lg sm:text-xl font-semibold">Nothing here yet.</span>
-    <span class="text-sm font-normal text-gray-400"
+    <span class="text-sm font-normal text-neutral-400"
       >Please use the button below to add something !</span
     >
   </div>

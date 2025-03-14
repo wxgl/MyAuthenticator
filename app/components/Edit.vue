@@ -4,6 +4,8 @@ import { toast } from "@steveyuowo/vue-hot-toast";
 
 const props = defineProps<{ account: AccountEdit; accountId: number }>();
 
+const emit = defineEmits(["close"]);
+
 const state = reactive<AccountEdit>({ ...props.account });
 
 const searchIcon = ref("");
@@ -28,7 +30,7 @@ async function updateAccount(event: FormSubmitEvent<AccountEdit>) {
         type: "success",
       });
       await refreshNuxtData("accounts");
-      await closeModal();
+      emit("close");
       loading.value = false;
     })
     .catch((err) => {
@@ -93,7 +95,7 @@ watch(searchIconDebounced, async (query) => {
         </UFormField>
         <div class="flex w-full justify-end space-x-4 mt-4 px-3">
           <UButton
-            @click="closeModal"
+            @click="emit('close')"
             label="Cancel"
             color="neutral"
             variant="ghost"

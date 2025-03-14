@@ -82,30 +82,39 @@ const deletePasskey = async (id: string) => {
 </script>
 
 <template>
-  <div class="py-4 flex-col">
-    <form class="flex justify-end space-x-2" @submit.prevent="addPasskey">
-      <UInput
-        color="neutral"
-        variant="outline"
-        placeholder="Passkey Name"
-        :ui="{ root: 'w-auto' }"
-        required
-        v-model="passKeyName"
-      />
-      <UButton
-        type="submit"
-        color="primary"
-        icon="i-heroicons-plus-16-solid"
-        size="sm"
-        :disabled="loading"
-        >NEW</UButton
-      >
-    </form>
-    <UTable
-      :columns="columns"
-      :loading="status === 'pending'"
-      :data="passkeys"
-      class="border border-gray-300 dark:border-gray-700 mt-4 rounded-xl flex-1"
-    />
-  </div>
+  <UModal
+    title="Passkeys"
+    :ui="{ close: 'top-2 start-6 end-auto' }"
+    close-icon="i-lucide-arrow-left"
+    :dismissible="false"
+  >
+    <template #body>
+      <div class="py-4 flex-col">
+        <form class="flex justify-end space-x-2" @submit.prevent="addPasskey">
+          <UInput
+            color="neutral"
+            variant="outline"
+            placeholder="Passkey Name"
+            :ui="{ root: 'w-auto' }"
+            required
+            v-model="passKeyName"
+          />
+          <UButton
+            type="submit"
+            color="primary"
+            icon="i-heroicons-plus-16-solid"
+            size="sm"
+            :disabled="loading"
+            >NEW</UButton
+          >
+        </form>
+        <UTable
+          :columns="columns"
+          :loading="status === 'pending'"
+          :data="passkeys"
+          class="border border-neutral-300 dark:border-neutral-700 mt-4 rounded-[calc(var(--ui-radius)*2)] flex-1"
+        />
+      </div>
+    </template>
+  </UModal>
 </template>

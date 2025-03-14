@@ -69,11 +69,11 @@ export default defineAppConfig({
       },
     },
     skeleton: {
-      base: "bg-white dark:bg-gray-900",
+      base: "bg-white dark:bg-neutral-900",
     },
     modal: {
       slots: {
-        overlay: "bg-gray-200/75 dark:bg-gray-950/75 backdrop-blur-sm",
+        overlay: "bg-neutral-200/75 dark:bg-neutral-950/75 backdrop-blur-sm",
         content: "divide-y-0 px-2",
         title: "uppercase",
         header: "pt-3 pb-0 justify-center min-h-auto",
@@ -88,7 +88,7 @@ export default defineAppConfig({
         fullscreen: {
           false: {
             content:
-              "max-w-sm w-full sm:max-w-md h-max bottom-0 inset-x-0 top-auto mx-auto translate-x-0 translate-y-0 rounded-t-2xl sm:rounded-[calc(var(--ui-radius)*2)] shadow-lg ring sm:top-[50%] sm:left-[50%] sm:bottom-auto sm:right-auto sm:translate-x-[-50%] sm:translate-y-[-50%]",
+              "max-w-sm w-full sm:max-w-md h-max bottom-0 inset-x-0 top-auto mx-auto translate-x-0 translate-y-0 rounded-t-[calc(var(--ui-radius)*4)] sm:rounded-[calc(var(--ui-radius)*2)] shadow-lg ring sm:top-[50%] sm:left-[50%] sm:bottom-auto sm:right-auto sm:translate-x-[-50%] sm:translate-y-[-50%]",
           },
         },
       },

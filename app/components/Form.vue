@@ -2,7 +2,7 @@
 import type { FormErrorEvent, FormSubmitEvent } from "#ui/types";
 import { toast } from "@steveyuowo/vue-hot-toast";
 
-const modal = useModal();
+const emit = defineEmits(["close"]);
 
 const state = reactive<Account>({
   type: "TOTP",
@@ -45,7 +45,7 @@ async function addAccount(event: FormSubmitEvent<Account>) {
         type: "success",
       });
       await refreshNuxtData("accounts");
-      await closeModal();
+      emit("close");
       loading.value = false;
     })
     .catch((err) => {
@@ -113,7 +113,7 @@ watch(searchIssuerDebounced, async (query) => {
         </UFormField>
         <div v-show="!showAdvanced" class="flex-center w-full">
           <UButton
-            class="uppercase mx-auto text-xs font-bold font-mono text-primary-600"
+            class="uppercase mx-auto text-xs font-bold font-mono text-(--ui-primary)/70"
             variant="ghost"
             @click="showAdvanced = true"
             >show advanced</UButton
@@ -170,7 +170,7 @@ watch(searchIssuerDebounced, async (query) => {
         </div>
         <div class="flex w-full justify-end space-x-4 mt-4 px-3">
           <UButton
-            @click="closeModal"
+            @click="emit('close')"
             label="Cancel"
             color="neutral"
             variant="ghost"
