@@ -81,7 +81,6 @@ function setBlackAsPrimary(value: boolean) {
     title="Theme"
     :ui="{ close: 'top-2 start-6 end-auto' }"
     close-icon="i-lucide-arrow-left"
-    :dismissible="false"
   >
     <template #body>
       <div class="p-1 flex-col flex space-y-3 py-2">
