@@ -197,7 +197,7 @@ const restoreFromUriListFile = async () => {
           block
           icon="i-hugeicons-encrypt"
           :variant="chosen == 1 ? 'ghost' : 'soft'"
-          :color="chosen == 1 ? 'primary' : 'neutral'"
+          color="primary"
           class="py-2 gap-x-3"
           label="Backup to Encrypted file"
           :class="
@@ -238,7 +238,7 @@ const restoreFromUriListFile = async () => {
           block
           icon="i-prime-list"
           :variant="chosen == 2 ? 'ghost' : 'soft'"
-          :color="chosen == 2 ? 'primary' : 'neutral'"
+          color="primary"
           class="py-2 gap-x-3"
           label="Backup to URi list file"
           :class="
@@ -268,7 +268,7 @@ const restoreFromUriListFile = async () => {
           block
           icon="i-hugeicons-encrypt"
           :variant="chosen == 3 ? 'ghost' : 'soft'"
-          :color="chosen == 3 ? 'primary' : 'neutral'"
+          color="primary"
           class="py-2 gap-x-3"
           label="Restore from Encrypted file"
           :class="
@@ -320,7 +320,7 @@ const restoreFromUriListFile = async () => {
           block
           icon="i-prime-list"
           :variant="chosen == 4 ? 'ghost' : 'soft'"
-          :color="chosen == 4 ? 'primary' : 'neutral'"
+          color="primary"
           class="py-2 gap-x-3"
           label="Restore from URi list file"
           :class="

@@ -31,16 +31,15 @@ async function updateAccount(event: FormSubmitEvent<AccountEdit>) {
       });
       await refreshNuxtData("accounts");
       emit("close");
-      loading.value = false;
     })
     .catch((err) => {
       toast.update(toastid, {
         message: err?.data?.message ?? err,
         type: "error",
       });
-      loading.value = false;
       console.error(err);
     });
+  loading.value = false;
 }
 
 async function onError(event: FormErrorEvent) {
