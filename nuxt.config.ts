@@ -35,27 +35,17 @@ export default defineNuxtConfig({
       name: "MyAuthenticator",
       short_name: "MyAuthenticator",
       theme_color: "#0f172b",
+      orientation: "natural",
+      display: "standalone",
+      background_color: "#0f172b",
+      start_url: "/",
+      lang: "en",
       icons: [
         {
-          src: "pwa-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          src: "pwa-310x310.png",
-          sizes: "310x310",
-          type: "image/png",
-        },
-        {
           src: "pwa-512x512.png",
           sizes: "512x512",
           type: "image/png",
-        },
-        {
-          src: "pwa-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "any maskable",
+          purpose: "any",
         },
       ],
     },

@@ -41,6 +41,7 @@ useHead({
 </script>
 
 <template>
+  <NuxtPwaManifest />
   <UApp>
     <UContainer>
       <NuxtPage />
