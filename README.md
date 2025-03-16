@@ -16,7 +16,7 @@
 
 ## Live Demo
 
-[![Demo Site](https://img.shields.io/badge/Demo-Visit-blue?style=for-the-badge&logo=googlechrome)](https://beta.my-authenticator.pages.dev)
+[![Demo Site](https://img.shields.io/badge/Demo-Visit-blue?style=for-the-badge&logo=googlechrome)](https://my-authenticator.pages.dev)
 
 - Credentials: `admin` - `Admin@123$`
 
@@ -28,10 +28,6 @@
 > This project is currently under testing and improvements. Please back up your data before proceeding.
 
 You can deploy this project on your Cloudflare account for **free** with zero configuration using **[NuxtHub](https://hub.nuxt.com)**. You can use either the NuxtHub CLI or the NuxtHub Admin Web UI. Simply select your GitHub account, set the required environment variables, and you're done. You now have your own authenticator.
-
-## Why ?
-
-Many web-based authenticators require a dedicated server for deployment and maintenance. MyAuthenticator eliminates this need by running entirely on edge functions. This serverless approach allows you to deploy it for free, providing a cost-effective and hassle-free solution.
 
 ## Features 🔥
 
@@ -48,6 +44,17 @@ Many web-based authenticators require a dedicated server for deployment and main
 **🗃️ Backup / Restore:** Securely backup and restore authenticators with encryption seamlessly.
 
 ## Screenshots 📱
+
+<p>
+  <img src='./public/screenshots/1.jpg' height="690"/>
+  <img src='./public/screenshots/2.jpg' height="690"/>
+  <img src='./public/screenshots/3.jpg' height="690"/>
+</p>
+<p>
+  <img src='./public/screenshots/4.jpg' height="690"/>
+  <img src='./public/screenshots/5.jpg' height="690"/>
+  <img src='./public/screenshots/6.jpg' height="690"/>
+</p>
 
 ## Environment Variables
 
