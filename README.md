@@ -8,7 +8,7 @@
   
 [![Nuxt 4 Badge](https://img.shields.io/badge/Nuxt_4-black?style=for-the-badge&logo=nuxt&link=https%3A%2F%2Fnuxt.com)](https://nuxt.com)
 [![NuxtHub Badge](https://img.shields.io/badge/NuxtHub-black?style=for-the-badge&logo=nuxt&link=https%3A%2F%2Fnuxt.com)](https://hub.nuxt.com)
-[![NuxtUi Badge](https://img.shields.io/badge/Nuxtui_3-black?style=for-the-badge&logo=nuxt&link=https%3A%2F%2Fnuxt.com)](https://hub.nuxt.com)
+[![NuxtUi Badge](https://img.shields.io/badge/Nuxtui_3-black?style=for-the-badge&logo=nuxt&link=https%3A%2F%2Fnuxt.com)](https://ui.nuxt.com)
 [![Cloudflare Pages Badge](https://img.shields.io/badge/Cloudflare_Pages-black?style=for-the-badge&logo=cloudflarepages&link=https%3A%2F%2Fpages.cloudflare.com)](https://pages.cloudflare.com)
 [![Typescript Badge](https://img.shields.io/badge/Typescript-black?style=for-the-badge&logo=typescript&link=https%3A%2F%2Fwww.typescriptlang.org)](https://www.typescriptlang.org)
 [![Drizzle Badge](https://img.shields.io/badge/Drizzle-black?style=for-the-badge&logo=drizzle&link=https%3A%2F%2Fdrizzle.com)](https://drizzle.com)
