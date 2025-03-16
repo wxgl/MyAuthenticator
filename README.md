@@ -49,8 +49,6 @@ You can deploy this project on your Cloudflare account for **free** with zero co
   <img src='./public/screenshots/1.jpg' height="690"/>
   <img src='./public/screenshots/2.jpg' height="690"/>
   <img src='./public/screenshots/3.jpg' height="690"/>
-</p>
-<p>
   <img src='./public/screenshots/4.jpg' height="690"/>
   <img src='./public/screenshots/5.jpg' height="690"/>
   <img src='./public/screenshots/6.jpg' height="690"/>
